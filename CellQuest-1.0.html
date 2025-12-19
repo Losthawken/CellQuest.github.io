@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Quest</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .mainContainer {
+            display: flex;
+            gap: 20px;
+        }
+        /* Right column: teams */
+        .teams {
+            flex: 0 0 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .teamBlock {
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+        .teamBlock h3 {
+            margin: 0 0 5px 0;
+        }
+        .teamBlock select {
+            width: 50px;
+            margin-right: 5px;
+        }
+        /* Middle column: stacked mini canvases */
+        .miniCanvases {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .miniCanvases > div {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #888;
+        }
+        /* Left column: large canvas */
+        #canvasDiv {
+            flex: 1;
+            height: 600px;
+            width: 600px;
+            border: 1px solid #888;
+        }
+        /* Misc */
+        #debugWrap {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Cell Quest</h1>
+
+<div class="controls">
+    <button id="resetButton">Reset</button>
+    <button id="gameButton">Start</button>
+    <button id="loopButton">Loop</button>
+    <div>Reload Count: <span id="counter">0</span></div>
+</div>
+<div id="score">
+    <!-- Scores -->
+</div>
+<div class="mainContainer">
+    <!-- Right column: large canvas -->
+    <div id="canvasDiv">Main Canvas</div>
+        <!-- Middle column: stacked mini canvases -->
+    <div class="miniCanvases">
+        <div id="canvasTDiv">Terrain Canvas</div>
+        <div id="canvasPDiv">Population Canvas</div>
+    </div>
+    <!-- Left column: teams -->
+    <div class="teams">
+        <div class="teamBlock" id="teamBlue">
+            <h3>Team Blue</h3>
+            Aggression: <select id="team_blue_agr" class="teamSelect"></select><br>
+            Defense: <select id="team_blue_def" class="teamSelect"></select><br>
+            Verdence: <select id="team_blue_vrd" class="teamSelect"></select>
+        </div>
+        <div class="teamBlock" id="teamRed">
+            <h3>Team Red</h3>
+            Aggression: <select id="team_red_agr" class="teamSelect"></select><br>
+            Defense: <select id="team_red_def" class="teamSelect"></select><br>
+            Verdence: <select id="team_red_vrd" class="teamSelect"></select>
+        </div>
+        <div class="teamBlock" id="teamYellow">
+            <h3>Team Yellow</h3>
+            Aggression: <select id="team_yellow_agr" class="teamSelect"></select><br>
+            Defense: <select id="team_yellow_def" class="teamSelect"></select><br>
+            Verdence: <select id="team_yellow_vrd" class="teamSelect"></select>
+        </div>
+        <div class="teamBlock" id="teamGreen">
+            <h3>Team Green</h3>
+            Aggression: <select id="team_green_agr" class="teamSelect"></select><br>
+            Defense: <select id="team_green_def" class="teamSelect"></select><br>
+            Verdence: <select id="team_green_vrd" class="teamSelect"></select>
+        </div>
+        <div class="teamBlock" id="teamPurple">
+            <h3>Team Purple</h3>
+            Aggression: <select id="team_purple_agr" class="teamSelect"></select><br>
+            Defense: <select id="team_purple_def" class="teamSelect"></select><br>
+            Verdence: <select id="team_purple_vrd" class="teamSelect"></select>
+        </div>
+    </div>
+</div>
+
+<!-- DEBUG AREA -->
+<div id="debugWrap">
+    <pre id="clientOut"></pre>
+    <pre id="serverOut"></pre>
+</div>
+
+<script>
+    // Populate all selects dynamically
+    document.querySelectorAll('.teamSelect').forEach(sel => {
+        for (let i = 1; i <= 10; i++) {
+            let opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i;
+            sel.appendChild(opt);
+        }
+    });
+</script>
+<script src="CellQuest.js"></script>
+
+</body>
+</html>
